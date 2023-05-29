@@ -60,7 +60,6 @@ btn.addEventListener('click', (e)=> {
     removeWarning(yearBox)
 
 
-
    // check if any of the input fields are empty and send warning accordingly
     if (!day){
         sendWarning(dayBox)
@@ -75,33 +74,37 @@ btn.addEventListener('click', (e)=> {
         yearBox.querySelector('.invisable').innerHTML = 'This field is required';
     }
     
-
-    //  if the entered date is valid, calculate age
-    if (moment(`${year}-${month}-${day}`).isValid()) {
-        // if date is valid, check for future year and then send to caluclate age
-        if (year > currentYear){
-            sendWarning(yearBox);
-            yearBox.querySelector('.invisable').innerHTML = 'Must be a valid year';
-            return;
+    // if all fields were entered
+    if (day && month && year){
+        //  check if input is valid, calculate age
+        if (moment(`${year}-${month}-${day}`).isValid()) {
+            // if date is valid, check for future year and then send to caluclate age
+            if (year > currentYear){
+                sendWarning(yearBox);
+                yearBox.querySelector('.invisable').innerHTML = 'Must be a valid year';
+                return;
+            }
+            calculateAge(day, month, year);
+            
         }
-        calculateAge(day, month, year);
-        
-    }
-    else {
         // identify which is not valid and return error msg accordingly 
-        if (day > 31 || day < 1){
-            sendWarning(dayBox)
-            dayBox.querySelector('.invisable').innerHTML = 'Must be a valid day';
-        }
-        if (month > 12 || month < 1){
-            sendWarning(monthBox);
-            monthBox.querySelector('.invisable').innerHTML = 'Must be a valid month';
-        }
-        if (year > currentYear || year < 1){
-            sendWarning(yearBox);
-            yearBox.querySelector('.invisable').innerHTML = 'Must be a valid year';
+        else {
+            
+            if (day > 31 || day < 1){
+                sendWarning(dayBox)
+                dayBox.querySelector('.invisable').innerHTML = 'Must be a valid day';
+            }
+            if (month > 12 || month < 1){
+                sendWarning(monthBox);
+                monthBox.querySelector('.invisable').innerHTML = 'Must be a valid month';
+            }
+            if (year > currentYear || year < 1){
+                sendWarning(yearBox);
+                yearBox.querySelector('.invisable').innerHTML = 'Must be a valid year';
+            }
         }
     }
+
 })
 
 
