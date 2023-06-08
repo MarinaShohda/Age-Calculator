@@ -41,7 +41,9 @@ btn.addEventListener('click', (e)=> {
 
         year = currentYear - year;
         month = currentMonth - month;
+        {day > currentDay ? month = month-1 : month}
         day = currentDay - day;
+        
         if (day < 0 ){
             day = 30 - Math.abs(day)
         }
@@ -49,10 +51,13 @@ btn.addEventListener('click', (e)=> {
             month = 12 - Math.abs(month)
             year = year - 1
         }
+        
         dayOutput.innerHTML = day;
         monthOutput.innerHTML = month;
         yearOutput.innerHTML = year;
     }
+
+
 
     // clear previous warning
     removeWarning(dayBox)
